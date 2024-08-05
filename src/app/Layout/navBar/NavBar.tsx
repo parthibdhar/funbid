@@ -3,11 +3,18 @@ import Link from 'next/link';
 import React from 'react'
 import { CiSearch } from 'react-icons/ci';
 import Image from 'next/image';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 const NavBar = () => {
     const hover = "hover:text-white transitions text-white "
 
-    const Hover = ({ isActive }) => (isActive ? 'text-black' : hover)
+    // const Hover = ({ isActive }) => (isActive ? 'text-black' : hover)
+
+    const handleAddProduct = () => {
+        alert("add product")
+        console.log("add product")
+    }
+
 
   return (
     <>
@@ -30,14 +37,21 @@ const NavBar = () => {
             </div>
 
             {/* menues */}
-            <div className=' col-span-2 font-medium text-sm hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center'>
+            <div className=' col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center'>
                 <Link href={"../../history"} className="hover:text-text transitions text-white">History</Link>
                 <Link href={"../../currentBid"} className="hover:text-text transitions text-white">Current Bid</Link>
             </div>
 
             {/* add product */}
-            <div className="col-span-2 hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
-                <button className='bg-dry  text-text rounded-xl px-4 py-2 justify-end hover:bg-transparent hover:border border-text transitions'> Add product</button>
+            <div className="col-span-3 hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
+                <button 
+                onClick={handleAddProduct}
+                className='bg-dry  text-text rounded-xl px-4 py-2 justify-end hover:bg-transparent hover:border border-text transitions'> Add product</button>
+            </div>
+
+            {/* profile */}
+            <div className="col-span-1 hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
+                <Link href={"../../profile"} className="text-4xl justify-center hover:text-text transitions text-white"><FaRegUserCircle /></Link>
             </div>
         </div>
     </div>

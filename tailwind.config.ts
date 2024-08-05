@@ -25,6 +25,7 @@ module.exports = {
         subText: '#A167FC',
         border: '#5517B7',
         inputBg: '#2d396b',
+        
       },
     },
   },
