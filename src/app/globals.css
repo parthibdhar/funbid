@@ -9,7 +9,8 @@ html {
   font-family: 'Poppins', sans-serif;
 
   font-weight: 400;
-
+  background: #050121;
+  color: white;
 }
 
 input:focus,
