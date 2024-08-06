@@ -38,7 +38,7 @@ const Footer = () => {
               height={48}
               className=" w-full h-12 object-contain pl-6 justify-items-end items-end"
             />
-              <h2 className="text-white text-2xl ml-0 leading-7" >FunBid</h2>
+            <h2 className="text-white text-2xl ml-0 leading-7">FunBid</h2>
           </div>
           {Links.map((link, index) => (
             <div
@@ -67,7 +67,9 @@ const Footer = () => {
       <div className="mx-auto px-2 ">
         <div className="grid grid-cols-3 my-3 py-3">
           <div className="col-span-1 ">
-            <p className="text-text text-center text-md">© 2022 FunBid. All rights reserved.</p>
+            <p className="text-text text-center text-md">
+              © 2022 FunBid. All rights reserved.
+            </p>
           </div>
           <div className="col-span-1 grid grid-cols-2 gap-2">
             <p className="text-text text-center text-md">T&c </p>
@@ -75,18 +77,26 @@ const Footer = () => {
           </div>
           <div className="col-span-1">
             <div className="mx-10 px-10">
-              <ul className="flex items-center space-x-8">
-                <li className=" text-xl text-text">
-                  <Link href=""><CiTwitter /></Link>
+              <ul className="flex items-center space-x-8 ">
+                <li className=" text-xl text-text transitions">
+                  <Link href="">
+                    <CiTwitter />
+                  </Link>
                 </li>
-                <li className=" text-xl text-text">
-                  <Link href=""><FaInstagram /></Link>
+                <li className=" text-xl text-text transitions">
+                  <Link href="">
+                    <FaInstagram />
+                  </Link>
                 </li>
-                <li className=" text-xl text-text">
-                  <Link href=""><FiFacebook /></Link>
+                <li className=" text-xl text-text transitions">
+                  <Link href="">
+                    <FiFacebook />
+                  </Link>
                 </li>
-                <li className=" text-xl text-text">
-                  <Link href=""><SlSocialLinkedin /></Link>
+                <li className=" text-xl text-text transitions">
+                  <Link href="">
+                    <SlSocialLinkedin />
+                  </Link>
                 </li>
               </ul>
             </div>
