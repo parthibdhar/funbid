@@ -9,10 +9,7 @@ import { Input } from "../Components/UsedInputs";
 import Link from "next/link";
 import { FiLogIn } from "react-icons/fi";
 import Image from "next/image";
-import { InlineError } from "../Components/Notifications/errorNotifications";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginValidation } from "../validation/loginValidation";
+
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
