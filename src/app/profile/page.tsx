@@ -46,10 +46,9 @@ const Page = () => {
     const lastValue = value.slice(-1)
    
     const val = parseInt(lastValue)
-   
-    console.log(Number.isNaN(val))
       if(Number.isNaN(val) === false || value === ''){
-        setUser({...user, phone: value})
+        setUser({...user, phone: value});
+        setInputError("");
       }
       else setInputError("Please enter a valid number")
   }
