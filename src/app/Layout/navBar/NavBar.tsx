@@ -40,8 +40,8 @@ const NavBar = () => {
           route: "../../dashboard",
         },
         {
-          title: "Settings",
-          route: "/products/doozers",
+          title: "profile",
+          route: "/profile",
         },
         {
           title: "signout",

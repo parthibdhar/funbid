@@ -12,6 +12,7 @@ import Link from "next/link";
 import { FiLogIn } from "react-icons/fi";
 import Image from "next/image";
 import { FaGoogle } from "react-icons/fa";
+import { InlineError } from "../Components/Notifications/errorNotifications";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -106,6 +107,8 @@ const Signin = () => {
           >
             <FaGoogle color="#6D28D9" fontSize={25}/> Sign in with Google
           </button>
+          {error && <InlineError text={error} />} 
+          
         </div>
       </div>
     </Layout>
@@ -135,6 +138,6 @@ export default Signin;
         <button type="submit">Sign In</button>
       </form>
       <button onClick={handleGoogleSignIn}>Sign In with Google</button>
-      {error && <p>{error}</p>}
+      
     </div> */
 }
