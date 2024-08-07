@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../database/firebase';
 
+
 const withAuth = (WrappedComponent: React.ComponentType) => {
   return (props: any) => {
     const [loading, setLoading] = useState(true);
@@ -13,6 +14,8 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
+          console.log("user");
+          console.log(user.uid);
           setAuthenticated(true);
         } else {
           router.push('/signIn');

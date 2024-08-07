@@ -6,7 +6,7 @@ import { auth } from "../database/firebase";
 import { googleSignOut } from "../auth/googleAuth";
 import { useRouter } from "next/navigation";
 import Layout from "../Layout/Layout/Layout";
-import SideBar from "../constants/sideBar";
+import SideBar from "../constants/SiderBar";
 
 type UserProfile = {
   email: string;
@@ -60,7 +60,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         <p>Welcome, {profile.email}</p>
         <p className="text-subText">
-          Account created on: {profile.createdAt.toString()}  
+          Account created on: {profile.createdAt.toString()}
         </p>
         <button onClick={handleLogout}>Sign Out</button>
       </div>

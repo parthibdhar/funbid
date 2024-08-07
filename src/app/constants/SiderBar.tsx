@@ -6,14 +6,12 @@ import { RiLockPasswordLine, RiMovie2Fill } from "react-icons/ri";
 import { HiViewGridAdd } from "react-icons/hi";
 import { FiSettings } from "react-icons/fi";
 import Layout from "../Layout/Layout/Layout";
-import Link from "next/link";
 import { usePathname } from 'next/navigation'
+import Link from "next/link";
 
-interface SideBarProps {
+type SideBarProps = {
     children: React.ReactNode;
 }
-
-
 const SideBar: React.FC<SideBarProps> = ({ children }) => {
   const SideLinks = [
     {
@@ -58,12 +56,11 @@ const SideBar: React.FC<SideBarProps> = ({ children }) => {
     },
   ];
 
-  const pathname = usePathname();
-  console.log(pathname);
-  const active = `bg-subMain text-subText`;
+  const pathname = usePathname()
+  const active = `bg-inputBg text-text`;
   const hover = "hover:text-white hover:bg-main";
   const inActive ="rounded font-medium text-sm transitions flex gap-3 items-center p-4";
-  const Hover = ({ isActive }: {isActive: any } ) =>
+  const Hover = ({ isActive }: { isActive: any }) =>
     isActive ? `${active} ${inActive}` : `${inActive} ${hover}`;
 
   return (
@@ -74,7 +71,7 @@ const SideBar: React.FC<SideBarProps> = ({ children }) => {
             {
               //Sidebar Links
               SideLinks?.map((link, i) => (
-                <Link key={i} href={link.link} className={Hover({ isActive: link.link === pathname })}>
+                <Link key={i} href={link.link} className={Hover ({ isActive: pathname === link.link })}>
                   <link.icon /> <p>{link.name}</p>
                 </Link>
               ))

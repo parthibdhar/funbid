@@ -22,7 +22,6 @@ type InputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-// text area
 export const Message: React.FC<MessageProps> = ({ label, placeholder }) => {
   return (
     <div className="text-sm w-full">
@@ -39,7 +38,6 @@ export const Message: React.FC<MessageProps> = ({ label, placeholder }) => {
   );
 };
 
-// select type
 export const Select: React.FC<SelectProps> = ({ label, options, onChange }) => {
   return (
     <>
@@ -58,7 +56,6 @@ export const Select: React.FC<SelectProps> = ({ label, options, onChange }) => {
   );
 };
 
-// input text type
 export const Input: React.FC<InputProps> = ({
   label,
   placeholder,

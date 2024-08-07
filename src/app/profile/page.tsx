@@ -1,43 +1,65 @@
 'use client'
 import React, { useState } from 'react'
 import Layout from '../Layout/Layout/Layout'
-import SideBar from '../constants/sideBar'
-import { FiLogIn } from 'react-icons/fi'
-import Link from 'next/link'
-import { Input } from '../Components/UsedInputs'
+import SideBar from '../constants/SiderBar'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { signUp } from '../auth/auth'
-import { createUserProfile } from '../firestore/user'
-import { MdSaveAs } from 'react-icons/md'
-import withAuth from '../middleware/withAuth'
-
+import { Input } from '../Components/UsedInputs'
+import Link from 'next/link'
+import { MdSaveAs } from "react-icons/md";
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setError(null);
+  try {
+    const user = await signUp(email, password);
+    if (user) {
+      await createUserProfile(user.uid, { email, createdAt: new Date() });
+      router.push("/signIn"); // Redirect to a protected route after successful signup
+    }
+  } catch (error: any) {
+    setError(error.message);
+  }
+};
 const Page = () => {
-  const [name, setName] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    phone: "",
+  });
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [inputError, setInputError] = useState<string | null>(null);
   const router = useRouter();
-const [user, setUser] = useState({
-  name: "",
-  phone: "",
-});
+
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     try {
-     console.log(user)
+      
     } catch (error: any) {
       setError(error.message);
     }
   };
+
+  const setNumber = (value: any) => {
+    
+    const lastValue = value.slice(-1)
+   
+    const val = parseInt(lastValue)
+   
+    console.log(Number.isNaN(val))
+      if(Number.isNaN(val) === false || value === ''){
+        setUser({...user, phone: value})
+      }
+      else setInputError("Please enter a valid number")
+  }
   return (
-    <SideBar  >
-        <div className=" flex  flex-col mx-36 my-24 ">
+    <SideBar >
+         <div className=" mx-36  my-24">
         <form
           onSubmit={handleSubmit}
           
         >
-          <div className="grid grid-cols-5">
           <Image
             src="/images/logo.png"
             alt="logo"
@@ -45,40 +67,38 @@ const [user, setUser] = useState({
             height={6}
             className="w-full h-12 object-contain"
           />
-          <button className="col-span-1 text-white">hi </button>
-          </div>
-          
-        
+         
           <div className="w-full">
+         
             <Input
               label="Full Name"
-              name={"name"} 
-              placeholder={"parthib dhar"}
+              name={"name"}
+              placeholder={"parthibdhar"}
               type="text"
               bg={true}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
-              value= {user?.name}
-
+              onChange={  (e) => setUser({...user, name: e.target.value }) }
+              value= {user.name}
             />
-           
+           {inputError && <p className="text-red-500">{inputError}</p>}
+           {inputError}
           </div>
           <div className="w-full">
             <Input
               label="Phone Number"
               placeholder={"9674320582"}
-              type="number"
-              name={"phone"}
+              type="text"
+              name={"password"}
               bg={true}
-              onChange={(e) => setUser({ ...user, phone: e.target.value })}
-              value={user?.phone}
+              onChange={(e) => setNumber(e.target.value)}
+              value={user.phone}
             />
             
           </div>
           <button
             type="submit"
-            className="bg-text  mt-3 hover:bg-main hover:border-2 hover:border-text hover:text-text flex-rows gap-4 text-white p-4 rounded-lg w-full"
+            className="bg-border transitions mt-3 hover:bg-main hover:border-2 hover:border-border hover:text-border flex-rows gap-4 text-white p-4 rounded-lg w-full text-md"
           >
-            <MdSaveAs  /> Confirm to save
+            <MdSaveAs /> Confirm  to Save
           </button>
           <p className="text-center text-border">
             Already have an account?{" "}
@@ -96,4 +116,4 @@ const [user, setUser] = useState({
   )
 }
 
-export default withAuth(Page);
+export default Page
