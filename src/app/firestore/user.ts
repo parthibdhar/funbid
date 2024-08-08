@@ -15,9 +15,12 @@ export const createUserProfile = async (uid: string, data: { email: string; crea
 };
 
 
-export const updateUserProfile = async (uid: string, data: Partial<{ email: string; createdAt: Date }>) => {
+export const updateUserProfile = async (uid: string, data: Partial<{name: string; phone: string; email: string; createdAt: Date }>) => {
   try {
+    console.log("data");
+    console.log(data);
     await updateDoc(doc(db, 'users', uid), data);
+    return "data updated";
   } catch (error) {
     throw error;
   }

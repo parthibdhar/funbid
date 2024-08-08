@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../Layout/Layout/Layout'
 import SideBar from '../constants/SiderBar'
 import Image from 'next/image'
@@ -8,11 +8,15 @@ import { Input } from '../Components/UsedInputs'
 import Link from 'next/link'
 import { MdSaveAs } from "react-icons/md";
 import withAuth from '../middleware/withAuth'
+import { getUserProfile, updateUserProfile } from '../firestore/user'
+import { auth } from '../database/firebase'
 
 const Page = () => {
   const [user, setUser] = useState({
     name: "",
     phone: "",
+    email: "",
+    _id: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +29,10 @@ const Page = () => {
     event.preventDefault();
     setError(null);
     try {
-      
+      console.log("in try");
+      console.log(user);
+       const result = await updateUserProfile(user._id, user);
+       if(result) {alert(result); console.log(result)}
     } catch (error: any) {
       setError(error.message);
     }
@@ -44,6 +51,38 @@ const Page = () => {
       else setInputError("Please enter a valid number")
   }
   
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+         const user = auth.onAuthStateChanged(async (user) => {
+            if (user) {
+              let email;
+              const userData = await getUserProfile(user.uid);
+              console.log("userData")
+              console.log(userData.email);
+              const emailStr = JSON.stringify(userData.email);
+              console.log(emailStr[0]);
+              if(emailStr[2] === '"'  ){
+                console.log("in here if");
+                email = emailStr.slice(3, -3) ;
+                
+              }else{
+                console.log("in here else");
+                email = emailStr;
+              }
+              console.log(email);
+              setUser({  name: userData.name, phone: userData.phone, email: email, _id: userData._id});
+            }
+          })
+          // const user = await getUserProfile();
+          
+        } catch (error: any) {
+          setError(error.message);
+        }
+      };
+      fetchUser();
+    }, [router]);
+
   return (
     <SideBar >
          <div className=" mx-36  my-24">
