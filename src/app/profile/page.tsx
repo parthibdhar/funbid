@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Input } from '../Components/UsedInputs'
 import Link from 'next/link'
 import { MdSaveAs } from "react-icons/md";
+import withAuth from '../middleware/withAuth'
 
 const Page = () => {
   const [user, setUser] = useState({
@@ -106,4 +107,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default withAuth(Page);

@@ -1,6 +1,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getUserProfile, updateUserProfile } from '../../../firestore/user';
+import withAdminAuth from '@/app/middleware/withAdminAuth';
 
 const EditUser = () => {
   const [email, setEmail] = useState('');
@@ -56,4 +57,4 @@ const EditUser = () => {
   );
 };
 
-export default EditUser;
+export default withAdminAuth(EditUser);

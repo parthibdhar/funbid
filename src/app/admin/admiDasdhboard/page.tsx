@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getAllUsers, deleteUserProfile } from '../../firestore/user';
 import { useRouter } from 'next/navigation';
+import withAdminAuth from '@/app/middleware/withAdminAuth';
 
 const Users = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -68,4 +69,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default withAdminAuth(Users);
