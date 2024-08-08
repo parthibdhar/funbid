@@ -3,6 +3,9 @@ import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 
 export const signUp = async (email: string, password: string) => {
   try {
+    console.log("in try");
+    console.log(email, password);
+    console.log(auth);
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {

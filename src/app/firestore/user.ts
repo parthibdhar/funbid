@@ -1,14 +1,14 @@
 
 // lib/firestore.ts
-import { db, auth } from '../database/firebase';
+import { db } from '../database/firebase';
 import { doc, setDoc, getDoc, updateDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
-import { deleteUser } from 'firebase/auth';
-import firebase from '../database/firebase';
 import axios from 'axios';
 
 export const createUserProfile = async (uid: string, data: { email: string; createdAt: Date }) => {
   try {
-    await setDoc(doc(db, 'users', uid), data);
+    const UserData = {...data, role: "user", balance: 200, _id: uid};
+    console.log(UserData);
+    await setDoc(doc(db, 'users', uid), UserData);
   } catch (error) {
     throw error;
   }

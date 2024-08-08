@@ -7,28 +7,17 @@ import { useRouter } from 'next/navigation'
 import { Input } from '../Components/UsedInputs'
 import Link from 'next/link'
 import { MdSaveAs } from "react-icons/md";
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  setError(null);
-  try {
-    const user = await signUp(email, password);
-    if (user) {
-      await createUserProfile(user.uid, { email, createdAt: new Date() });
-      router.push("/signIn"); // Redirect to a protected route after successful signup
-    }
-  } catch (error: any) {
-    setError(error.message);
-  }
-};
+
 const Page = () => {
   const [user, setUser] = useState({
     name: "",
     phone: "",
   });
-  const [password, setPassword] = useState("");
+
   const [error, setError] = useState<string | null>(null);
   const [inputError, setInputError] = useState<string | null>(null);
   const router = useRouter();
+ 
 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,6 +30,7 @@ const Page = () => {
     }
   };
 
+  // ensure that the user enters a valid number
   const setNumber = (value: any) => {
     
     const lastValue = value.slice(-1)
@@ -52,6 +42,7 @@ const Page = () => {
       }
       else setInputError("Please enter a valid number")
   }
+  
   return (
     <SideBar >
          <div className=" mx-36  my-24">

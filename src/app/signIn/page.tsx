@@ -88,7 +88,7 @@ const Signin = () => {
               type="submit"
               className="bg-subMain transitions mt-3 hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full"
             >
-              <FiLogIn /> Sign up
+              <FiLogIn /> Sign in
             </button>
             <p className="text-center text-border">
               have not account?{" "}

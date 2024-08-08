@@ -20,7 +20,8 @@ const firebaseConfig = {
     measurementId: "G-7J3D10VVS1",
 };
 console.log(firebaseConfig)
-console.log(firebase)
+console.log("firebaseConfig")
+
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -30,4 +31,3 @@ export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 export const signOutUser = () => signOut(auth);
 
 export { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
-export default firebase;
