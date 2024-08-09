@@ -6,10 +6,12 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Input } from '../Components/UsedInputs'
 import Link from 'next/link'
-import { MdSaveAs } from "react-icons/md";
+import { MdDelete, MdSaveAs } from "react-icons/md";
 import withAuth from '../middleware/withAuth'
-import { getUserProfile, updateUserProfile } from '../firestore/user'
+import { deleteUserProfile, getUserProfile, updateUserProfile } from '../firestore/user'
 import { auth } from '../database/firebase'
+import { json } from 'stream/consumers'
+import ConfirmDeleteModal from '../Modals/ConfirmDelete.Modal'
 
 const Page = () => {
   const [user, setUser] = useState({
@@ -21,6 +23,7 @@ const Page = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [inputError, setInputError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter();
  
 
@@ -49,8 +52,19 @@ const Page = () => {
         setInputError("");
       }
       else setInputError("Please enter a valid number")
-  }
-  
+    }
+
+    const  handlDelete = async (uid: string) => {
+      try {
+        
+        // await deleteUserProfile(uid);
+        alert('User deleted successfully');
+        router.push('/signUp');
+      } catch (error: any) {
+        setError(error.message);
+      }
+    }
+
     useEffect(() => {
       const fetchUser = async () => {
         try {
@@ -85,6 +99,7 @@ const Page = () => {
 
   return (
     <SideBar >
+      <ConfirmDeleteModal uid={user?._id} name={user?.name} modalOpen={modalOpen} setModalOpen={setModalOpen} />
          <div className=" mx-36  my-24">
         <form
           onSubmit={handleSubmit}
@@ -130,16 +145,15 @@ const Page = () => {
           >
             <MdSaveAs /> Confirm  to Save
           </button>
-          <p className="text-center text-border">
-            Already have an account?{" "}
-            <Link
-              href={"/signIn"}
-              className="text-dryGray font-semibold ml-2 my3"
-            >
-              Sign in
-            </Link>
-          </p>
         </form>
+        <br />
+        <hr className='color-border bg-red-700' />
+        <button
+           onClick={() => setModalOpen(true)}
+            className="bg-red-700 transitions mt-3 hover:bg-main hover:border-2 hover:border-red-700 hover:text-red-700 flex-rows gap-4 text-white p-4 rounded-lg w-full text-md"
+          >
+            <MdDelete  /> delete User
+          </button>
       </div>
         
         </SideBar>

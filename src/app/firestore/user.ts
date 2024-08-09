@@ -4,7 +4,7 @@ import { db } from '../database/firebase';
 import { doc, setDoc, getDoc, updateDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import axios from 'axios';
 
-export const createUserProfile = async (uid: string, data: { email: string; createdAt: Date }) => {
+export const createUserProfile = async (uid: string, data: {name: string; email: string; createdAt: Date }) => {
   try {
     const UserData = {...data, role: "user", balance: 200, _id: uid};
     console.log(UserData);

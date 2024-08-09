@@ -30,7 +30,7 @@ const Signin = () => {
       console.log(user?.email);
       const email = JSON.stringify(user?.email);
       if (user) {
-        await createUserProfile(user.uid, { email, createdAt: new Date() });
+        await createUserProfile(user.uid, {name: JSON.stringify(user?.displayName), email, createdAt: new Date() });
         router.push("/dashboard"); // Redirect to a protected route after successful signin
       }
     } catch (error: any) {

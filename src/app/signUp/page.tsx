@@ -14,6 +14,7 @@ import Image from "next/image";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -29,7 +30,7 @@ const SignUp = () => {
     try {
       const user = await signUp(email, password);
       if (user) {
-        await createUserProfile(user.uid, { email, createdAt: new Date() });
+        await createUserProfile(user.uid, { name, email, createdAt: new Date() });
         router.push("/signIn"); // Redirect to a protected route after successful signup
       }
     } catch (error: any) {
@@ -52,17 +53,24 @@ const SignUp = () => {
             height={6}
             className="w-full h-12 object-contain"
           />
-          {/* <img src="../../../public/images/logo.png" 
-                alt="logo"
-                className='w-full h-12 object-contain ' /> */}
+         
           <div className="w-full">
-          {/* <input
-          type="email" */}
-          {/* value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required */}
-        {/* /> */}
+        
+            <Input
+              label="Ful Name"
+              name={"name"}
+              
+              placeholder={"parthib dhar"}
+              type="text"
+              bg={true}
+              onChange={(e) => setName(e.target.value)}
+              value= {name}
+
+            />
+           
+          </div>
+          <div className="w-full">
+        
             <Input
               label="Email"
               name={"email"}
