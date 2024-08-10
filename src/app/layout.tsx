@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "./StoreProvider";
 // import './page.module.css'
 
 
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <StoreProvider>
       <body >{children}</body>
+      </StoreProvider>
     </html>
   );
 }
