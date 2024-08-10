@@ -23,20 +23,9 @@ type UserProfile = {
 const Dashboard = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  
 
-  // log  out user
-  const handleLogout = async () => {
-    try {
-      await googleSignOut();
-      
-      localStorage.removeItem('user');
-      router.push("/signIn"); // Redirect to sign-in page after sign out
-    } catch (error: any) {
-      setError(error.message);
-    }
-  };
-
+ 
   useEffect(() => {
     const fetchProfile = async () => {
       

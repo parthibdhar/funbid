@@ -54,6 +54,7 @@ const Page = () => {
       else setInputError("Please enter a valid number")
     }
 
+    // delete user
     const  handlDelete = async (uid: string) => {
       try {
         
@@ -65,6 +66,7 @@ const Page = () => {
       }
     }
 
+    // fetch user
     useEffect(() => {
       const fetchUser = async () => {
         try {

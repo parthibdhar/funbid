@@ -9,7 +9,7 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   if (!storeRef.current) {
     // Create the store instance the first time this renders
     storeRef.current = makeStore();
-    const user = localStorage.getItem("user");
+   
     // add initial  data
      storeRef.current.dispatch(addUser({
        value: 5,
