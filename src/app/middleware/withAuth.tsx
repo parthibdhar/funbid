@@ -16,6 +16,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
         if (user) {
           console.log("user");
           console.log(user.uid);
+          localStorage.setItem('user',JSON.stringify(user));
           setAuthenticated(true);
         } else {
           router.push('/signIn');

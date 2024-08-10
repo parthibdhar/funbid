@@ -5,11 +5,16 @@ import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
 import Dropdown from "@/app/constants/Dropdown";
+import { handleLogout } from "../../helper/logout";
 
 export interface MenuItem {
     title: any;
     route?: string;
+    onClick?: boolean;
     children?: MenuItem[];
+  }
+  type props = {
+    onclick: () => any;
   }
 
 const NavBar = () => {
@@ -43,10 +48,7 @@ const NavBar = () => {
           title: "profile",
           route: "/profile",
         },
-        {
-          title: "signout",
-          route: "/products/zizzer-zazzers",
-        },
+        
       ],
     },
   ];
@@ -114,10 +116,12 @@ const NavBar = () => {
                 return item?.children ? (
                     <Dropdown key={item.title} item={item} />
                 ) :
-                (
+                ( 
                     <Link className="hover:text-text" href={item?.route || ""}>
                       {item.title}
                     </Link>
+                  
+                  
                   );
               } 
                   

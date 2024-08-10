@@ -9,6 +9,7 @@ export const createUserProfile = async (uid: string, data: {name: string; email:
     const UserData = {...data, role: "user", balance: 200, _id: uid};
     console.log(UserData);
     await setDoc(doc(db, 'users', uid), UserData);
+    
   } catch (error) {
     throw error;
   }
@@ -67,6 +68,9 @@ export const deleteUserProfile = async (uid: string) => {
 export const getAllUsers = async () => {
   try {
     const querySnapshot = await getDocs(collection(db, 'users'));
+    if (querySnapshot.empty) {
+      throw new Error('No users found');
+    }
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     throw error;

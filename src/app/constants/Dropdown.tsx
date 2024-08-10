@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MenuItem } from '../Layout/navBar/NavBar';
 import { googleSignOut } from '../auth/googleAuth';
 import { useRouter } from 'next/navigation';
+import { handleLogout } from '../helper/logout';
 
 interface Props {
     item: MenuItem;
@@ -16,14 +17,15 @@ export default function Dropdown(props: Props) {
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const menuItems = item?.children ? item.children : [];
-    const handleLogout = async () => {
-        try {
-          await googleSignOut();
-          router.push('/signIn'); // Redirect to sign-in page after sign out
-        } catch (error: any) {
-          setError(error.message);
-        }
-      };
+    // const handleLogout = async () => {
+    //     try {
+    //       await googleSignOut();
+
+    //       router.push('/signIn'); // Redirect to sign-in page after sign out
+    //     } catch (error: any) {
+    //       setError(error.message);
+    //     }
+    //   };
 
     const toggle = () => {
         setIsOpen(old => !old);

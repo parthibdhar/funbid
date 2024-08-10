@@ -43,7 +43,7 @@ const Signin = () => {
     event.preventDefault();
     setError(null);
     try {
-      await signIn(email, password);
+      await signIn(email, password); 
       router.push("/dashboard"); // Redirect to a protected route after successful signin
     } catch (error: any) {
       setError(error.message);
