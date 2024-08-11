@@ -10,6 +10,9 @@ import SideBar from "../constants/SiderBar";
 import Seasonal from "../Components/Home/Seasonal";
 import Trending from "../Components/Home/Trending";
 import Catagories from "../Components/Home/Catagories";
+import DashbordSkeleton from "../Components/skeletons/DashbordSkeleton";
+import SeasonalSkeleton from "../Components/skeletons/SeasonalSkeleton";
+import TrendingSkeleton from "../Components/skeletons/TrendingSkeleton";
 
 type UserProfile = {
   email: string;
@@ -56,7 +59,7 @@ const Dashboard = () => {
   }
 
   if (!profile) {
-    return <p>Loading profile...</p>;
+    return <DashbordSkeleton/>;
   }
 
   return (

@@ -8,8 +8,8 @@ type TitleProps = {
 const Titles:React.FC<TitleProps> = ({title, Icon}) => {
   return (
     <div className='w-full flex sm:gap-8 gap-4 items-center'>
-        <Icon className='sm:w-6 sm:h-6 h-4 w-4 text-subMain' />
-        <h2 className="sm:text-xl font-bold text-lg">{title}</h2>
+        <Icon className='sm:w-6 sm:h-6 h-6 w-6 text-text' />
+        <h2 className="sm:text-xl  font-bold text-lg">{title}</h2>
     </div>
   )
 }

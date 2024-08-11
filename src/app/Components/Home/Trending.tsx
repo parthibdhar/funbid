@@ -2,7 +2,8 @@ import React from 'react'
 import { prducts } from '../../data/products';
 import { BsCollectionFill } from 'react-icons/bs';
 import Titles from '../Titles';
-import Product from '../product';
+import Product from '../Product';
+
 
 const Trending = () => {
   return (

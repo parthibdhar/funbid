@@ -6,11 +6,13 @@ import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 import { FaHeart } from "react-icons/fa";
 import { adds } from "@/app/data/adds";
+import Titles from "../Titles";
+import { BiSolidOffer } from "react-icons/bi";
 
 const Banner = () => {
   return (
-    <div className="relative w-full">
-      <h1 className=" text-4xl font-bold my-3">Seasonal</h1>
+    <div className="relative w-full my-4">
+         
       <Swiper
         direction="vertical"
         slidesPerView={1}
@@ -21,7 +23,7 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
         modules={[Autoplay]}
-        className="w-full xl:h-96 bg-dry lg:h-64 h-48"
+        className="w-full my-4 xl:h-96 bg-dry lg:h-64 h-48"
       >
         {adds.map((add, index) => (
           <SwiperSlide key={index} className="relative rounded overflow-hidden">
