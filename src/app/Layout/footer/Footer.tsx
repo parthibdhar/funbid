@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="grid grid-cols-3 my-3 py-3">
           <div className="col-span-1 ">
             <p className="text-text text-center text-md">
-              © 2022 FunBid. All rights reserved.
+              © 2022 FunBid. All rights reserved. 
             </p>
           </div>
           <div className="col-span-1 grid grid-cols-2 gap-2">

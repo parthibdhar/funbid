@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../database/firebase';
+import DashbordSkeleton from '../Components/skeletons/DashbordSkeleton';
 
 
 const withAuth = (WrappedComponent: React.ComponentType) => {
@@ -28,7 +29,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     }, [router]);
 
     if (loading) {
-      return <p>Loading...</p>;
+      return <DashbordSkeleton {...props} />;
     }
 
     if (!authenticated) {

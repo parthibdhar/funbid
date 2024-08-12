@@ -46,7 +46,7 @@ const NavBar = () => {
         },
         {
           title: "profile",
-          route: "/profile",
+          route: "../../profile",
         },
         
       ],

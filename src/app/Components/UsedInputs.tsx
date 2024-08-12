@@ -56,6 +56,7 @@ export const Select: React.FC<SelectProps> = ({ label, options, onChange }) => {
   );
 };
 
+//input with 
 export const Input: React.FC<InputProps> = ({
   label,
   placeholder,
