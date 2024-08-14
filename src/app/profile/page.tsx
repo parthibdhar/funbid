@@ -43,7 +43,7 @@ const Page = () => {
 
   // ensure that the user enters a valid number
   const setNumber = (value: any) => {
-    
+    if(value.length > 10) return
     const lastValue = value.slice(-1)
    
     const val = parseInt(lastValue)
@@ -53,7 +53,7 @@ const Page = () => {
       }
       else setInputError("Please enter a valid number")
     }
-
+ 
     // delete user
     const  handlDelete = async (uid: string) => {
       try {

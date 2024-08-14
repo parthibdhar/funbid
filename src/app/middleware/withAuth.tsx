@@ -15,8 +15,8 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
-          console.log("user");
-          console.log(user.uid);
+          // console.log("user");
+          // console.log(user.uid);
           localStorage.setItem('user',JSON.stringify(user));
           setAuthenticated(true);
         } else {

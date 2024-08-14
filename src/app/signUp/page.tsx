@@ -15,6 +15,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -24,13 +25,26 @@ const SignUp = () => {
     }
   }, [router]);
 
+const  setNumber = (value: any) => {
+  if(value.length > 10) return
+  // console.log("value", value)
+  const lastValue = value.slice(-1)
+ 
+  const val = parseInt(lastValue)
+  console.log(val)
+    if(Number.isNaN(val) === false || value === ''){
+      setPhone(value)
+    }
+    else setError("Please enter a valid number")
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     try {
       const user = await signUp(email, password);
       if (user) {
-        await createUserProfile(user.uid, { name, email, createdAt: new Date() });
+        await createUserProfile(user.uid, { name, email, phone, createdAt: new Date() });
         router.push("/signIn"); // Redirect to a protected route after successful signup
       }
     } catch (error: any) {
@@ -93,6 +107,18 @@ const SignUp = () => {
               bg={true}
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+            />
+            
+          </div>
+          <div className="w-full">
+            <Input
+              label="Phone Number"
+              placeholder={"9674320582"}
+              type="tel"
+              name={"phone"}
+              bg={true}
+              onChange={(e) => setNumber(e.target.value)}
+              value={phone}
             />
             
           </div>

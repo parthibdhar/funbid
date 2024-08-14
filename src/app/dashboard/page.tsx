@@ -32,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       
-      console.log("Fetching profile...");
+      // console.log("Fetching profile...");
       try {
         const cachedProfile  = localStorage.getItem('user');
         if (cachedProfile) {

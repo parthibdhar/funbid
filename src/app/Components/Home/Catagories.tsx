@@ -39,7 +39,7 @@ const Catagories = () => {
       {/* <Select label="Catagory" options={CatagoryOptions} onChange={(e) => setselectedValue(e.target.value)}/> */}
       <div className="grid sm:mt-12 mt-6 xl:grid-cols-4 lg:grid-cols-3  grid-cols-1 gap-10">
         {prducts?.slice(0, 4).map((product, index) => {
-          console.log(product);
+          
           return <Product key={index} product={product} />;
         })}
       </div>

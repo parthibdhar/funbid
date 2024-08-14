@@ -22,7 +22,7 @@ type props = {
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.user);
-  console.log(25, "user", user.email.length);
+  
   const hover = "hover:text-white transitions text-white ";
 
   // const Hover = ({ isActive }) => (isActive ? 'text-black' : hover)
@@ -112,8 +112,8 @@ const NavBar = () => {
             >
               <div className=" text-gold flex">
                 {" "}
-                <FaCircle size={24} /> <p className="text-white ml-2"> 10 </p>
-                <button className="leading-7 mb-3">
+                <FaCircle size={24} /> <p className="text-white ml-2"> {user?.balance} </p>
+                <button className="leading-7 mb-3 text-white hover:text-text">
                   <CiCirclePlus size={20} />
                 </button>
               </div>

@@ -13,7 +13,7 @@ type Props = {
     }
 };
 const Product: React.FC<Props> = ({ product }) => {
-    console.log(product)
+    // console.log(product)
   return (
     <div className="border border-border p-1 hover:scale-95 transitions relative rounded overflow-hidden ">
         <Link href={`/product/${product?.name}`} className="w-full">

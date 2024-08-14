@@ -31,9 +31,13 @@ const dispatch = useAppDispatch();
       console.log(user);
       console.log(user?.displayName);
       console.log(user?.email);
+      console.log(user?.phoneNumber);
+      console.log(user?.photoURL);
       const email = JSON.stringify(user?.email);
+      const phone = user?.phoneNumber  ? JSON.stringify(user?.phoneNumber) :  "";
+      const photo = user?.photoURL  ? JSON.stringify(user?.photoURL) :  "";
       if (user) {
-       const usr = await createUserProfile(user.uid, {name: JSON.stringify(user?.displayName), email, createdAt: new Date() });
+       const usr = await createUserProfile(user.uid, {name: JSON.stringify(user?.displayName), email, phone,  photo, createdAt: new Date() });
       console.log("usr",usr?.UserData);
       const userData = {
         role: usr?.UserData.role || '', // Default to empty string if missing
