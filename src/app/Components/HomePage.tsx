@@ -63,7 +63,7 @@ const HomePage = () => {
 //   }
 
   return (
-    <Layout>
+    <Layout >
       <div className="container mx-auto min-h-screen px-2 mb-6">
       <Seasonal/>
       <Trending/>

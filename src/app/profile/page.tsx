@@ -81,7 +81,7 @@ const Page = () => {
               if(emailStr[2] === '"'  ){
                 console.log("in here if");
                 email = emailStr.slice(3, -3) ;
-                
+                  
               }else{
                 console.log("in here else");
                 email = emailStr;

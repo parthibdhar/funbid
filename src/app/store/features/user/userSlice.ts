@@ -4,20 +4,29 @@ import type { RootState } from '../../store'
 
 // Define a type for the slice state
 interface UserState {
-  value: number;
-  name:  string;
+  name: string;
   email: string;
-  phone: string;
-  auction: string[];
+  phone?: string; // Optional field
+  balance: number;
+  role: string;
+  _id: string;
+  createdAt: Date;
+  auction?: string[]; // Optional field
 }
+
 
 // Define the initial state using that type
 const initialState: UserState = {
-    value: 0,
-    name:  "",
-    email: "",
-    phone: "",
-    auction: []
+  name: "",
+  email: "",
+  phone: "",
+  auction: [],
+  balance: 0,
+  role: '',
+  _id: '',
+  createdAt: new Date()
+
+    
 }
 
 export const userSlice = createSlice({
@@ -26,14 +35,24 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<UserState>) => {
-      // state.value = action.payload.value
-      // state.name = action.payload.name
-      // state.email = action.payload.email
-      // state.phone = action.payload.phone
-      // state.auction = action.payload.auction
-      return {...state,...action.payload}
+      console.log('action.payload', action.payload);
+      console.log('state before', state);
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.phone = action.payload?.phone;
+      state.auction = action.payload?.auction;
+      state.balance = action.payload.balance;
+      state.role = action.payload.role;
+      state._id = action.payload._id;
+      state.createdAt = action.payload.createdAt;
+      console.log('state after', state);
+
     },
     addAuctiontoUser: (state, action: PayloadAction<string>) => {
+      if (!state.auction) {
+        state.auction = [];
+      }
+
       state.auction.push(action.payload)
     },
     

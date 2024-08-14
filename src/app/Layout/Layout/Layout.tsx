@@ -7,6 +7,7 @@ type LayoutProps = {
 }
 const Layout: React.FC<LayoutProps> = ({  children }) => {
     // console.log("layout: " , children)
+    
   return (
     
     <div className="main">

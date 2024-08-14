@@ -1,23 +1,28 @@
 /* eslint-disable react/jsx-no-undef */
 import Link from "next/link";
 import React, { useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import { CiCirclePlus, CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
 import Dropdown from "@/app/constants/Dropdown";
 import { handleLogout } from "../../helper/logout";
+import { useSelector } from "react-redux";
+import { useAppSelector } from "@/app/store/hooks";
+import { FaCircle } from "react-icons/fa";
 
 export interface MenuItem {
-    title: any;
-    route?: string;
-    onClick?: boolean;
-    children?: MenuItem[];
-  }
-  type props = {
-    onclick: () => any;
-  }
+  title: any;
+  route?: string;
+  onClick?: boolean;
+  children?: MenuItem[];
+}
+type props = {
+  onclick: () => any;
+};
 
 const NavBar = () => {
+  const user = useAppSelector((state) => state.user);
+  console.log(25, "user", user.email.length);
   const hover = "hover:text-white transitions text-white ";
 
   // const Hover = ({ isActive }) => (isActive ? 'text-black' : hover)
@@ -30,15 +35,17 @@ const NavBar = () => {
 
   const transClass = isOpen ? "flex" : "hidden";
   const handleAddProduct = () => {
+    if (user.email.length === 0) {
+      alert("please login first");
+      return;
+    }
     alert("add product");
     console.log("add product");
   };
 
-  
-
-   const menuItems: MenuItem[] = [
+  const menuItems: MenuItem[] = [
     {
-      title : <FaRegUserCircle />,
+      title: <FaRegUserCircle />,
       children: [
         {
           title: "Dashboard",
@@ -48,7 +55,6 @@ const NavBar = () => {
           title: "profile",
           route: "../../profile",
         },
-        
       ],
     },
   ];
@@ -83,7 +89,7 @@ const NavBar = () => {
           </div>
 
           {/* menues */}
-          <div className=" col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
+          <div className=" col-span-2 font-medium text-sm hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
             <Link
               href={"../../history"}
               className="hover:text-text transitions text-white"
@@ -98,8 +104,48 @@ const NavBar = () => {
             </Link>
           </div>
 
+          {/* if user then coin or signUp ot Login Page */}
+          {user?.email ? (
+            <div
+              className="col-span-2 font-medium text-sm hidden xl:gap-14
+               2xl:gap-20 lg:flex justify-between xl:justify-end items-center"
+            >
+              <div className=" text-gold flex">
+                {" "}
+                <FaCircle size={24} /> <p className="text-white ml-2"> 10 </p>
+                <button className="leading-7 mb-3">
+                  <CiCirclePlus size={20} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div
+                className="col-span-2 font-medium text-sm hidden xl:gap-14
+               2xl:gap-20 lg:flex justify-between xl:justify-end items-center
+                hover:text-text transitions text-white"
+              >
+                <Link
+                  href={"../../signIn"}
+                 
+                >
+                  Login
+                </Link>
+                <Link
+                  href={"../../signUp"}
+                   className="col-span-2 font-medium text-sm hidden xl:gap-14
+               2xl:gap-20 lg:flex justify-between xl:justify-end items-center
+                hover:text-text transitions text-white"
+                >
+                  {" "}
+                  sign up
+                </Link>
+              </div>
+            </>
+          )}
+
           {/* add product */}
-          <div className="col-span-3 hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
+          <div className="col-span-2 hidden xl:gap-14 2xl:gap-20 lg:flex justify-between xl:justify-end items-center">
             <button
               onClick={handleAddProduct}
               className="bg-dry  text-text rounded-xl px-4 py-2 justify-end hover:bg-transparent hover:border border-text transitions"
@@ -114,25 +160,19 @@ const NavBar = () => {
             <div className="text-4xl justify-center hover:text-text transitions text-white">
               {menuItems.map((item) => {
                 return item?.children ? (
-                    <Dropdown key={item.title} item={item} />
-                ) :
-                ( 
-                    <Link className="hover:text-text" href={item?.route || ""}>
-                      {item.title}
-                    </Link>
-                  
-                  
-                  );
-              } 
-                  
-              )}
+                  <Dropdown key={item.title} item={item} />
+                ) : (
+                  <Link className="hover:text-text" href={item?.route || ""}>
+                    {item.title}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
     </>
   );
-  
 };
 
 export default NavBar;

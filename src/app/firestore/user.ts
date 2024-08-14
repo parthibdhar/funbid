@@ -6,9 +6,21 @@ import axios from 'axios';
 
 export const createUserProfile = async (uid: string, data: {name: string; email: string; createdAt: Date }) => {
   try {
+    console.log(10, data);
+    console.log(data.email[1]);
+    if(data?.email[0] === '"'  ){
+      console.log("in here if");
+      data.email = data.email.slice(1, -1) ;  
+      data.name = data.name.slice(1, -1) ;  
+    } else{
+      data.email = data.email;
+    }
     const UserData = {...data, role: "user", balance: 200, _id: uid};
-    console.log(UserData);
-    await setDoc(doc(db, 'users', uid), UserData);
+    console.log(16, UserData);
+   await setDoc(doc(db, 'users', uid), UserData);
+   return {success: true,
+    UserData
+   };
     
   } catch (error) {
     throw error;

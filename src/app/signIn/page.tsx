@@ -12,17 +12,20 @@ import Link from "next/link";
 import { FiLogIn } from "react-icons/fi";
 import Image from "next/image";
 import { FaGoogle } from "react-icons/fa";
+import { useAppDispatch } from "../store/hooks";
+import { addUser } from "../store/features/user/userSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-
+const dispatch = useAppDispatch();
   // for google signin
   const handleGoogleSignIn = async () => {
     setError(null);
     try {
+      
       const user = await googleSignIn();
       console.log("user in signin page");
       console.log(user);
@@ -30,7 +33,23 @@ const Signin = () => {
       console.log(user?.email);
       const email = JSON.stringify(user?.email);
       if (user) {
-        await createUserProfile(user.uid, {name: JSON.stringify(user?.displayName), email, createdAt: new Date() });
+       const usr = await createUserProfile(user.uid, {name: JSON.stringify(user?.displayName), email, createdAt: new Date() });
+      console.log("usr",usr?.UserData);
+      const userData = {
+        role: usr?.UserData.role || '', // Default to empty string if missing
+        balance: usr?.UserData.balance || 0, // Default to 0 if missing
+        _id: usr?.UserData._id || '', // Default to empty string if missing
+        name: usr?.UserData.name || '', // Default to empty string if missing
+        email: usr?.UserData.email || '', // Default to empty string if missing
+        createdAt: usr?.UserData.createdAt || new Date(), // Default to current date if missing
+        phone: usr?.UserData?.phone || '', // Default to empty string if missing
+        auction: usr?.UserData?.auction || [] // Default to empty array if missing
+      }
+       alert(usr.success);
+        console.log(39, 'signin', userData);
+       if (usr?.UserData) {
+        dispatch(addUser(userData));
+       }
         router.push("/dashboard"); // Redirect to a protected route after successful signin
       }
     } catch (error: any) {

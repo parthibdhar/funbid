@@ -11,15 +11,14 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
     storeRef.current = makeStore();
    
     // add initial  data
-     storeRef.current.dispatch(addUser({
-       value: 5,
-       name: "",
-       email: "",
-       phone: "",
-       auction: [
-        "336454567h4e57htryu567", "336454567h4e57htryu567"
-       ]
-     }));
+    //  storeRef.current.dispatch(addUser({
+    //    name: "",
+    //    email: "", 
+    //    phone: "",
+    //    balance: 0,
+    //    role: "",
+    //    auction: []
+    //  }));
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;
