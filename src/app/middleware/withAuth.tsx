@@ -21,6 +21,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
           setAuthenticated(true);
         } else {
           router.push('/signIn');
+          localStorage.removeItem('user');
         }
         setLoading(false);
       });

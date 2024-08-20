@@ -66,7 +66,16 @@ const dispatch = useAppDispatch();
     event.preventDefault();
     setError(null);
     try {
-      await signIn(email, password); 
+     const login = await signIn(email, password); 
+     console.log("login",login);
+     if (login?.email) dispatch(addUser({
+       email: login?.email,
+       name: "",
+       balance: 0,
+       role: "",
+       _id: "",
+       createdAt: new Date(),
+     }));
       router.push("/dashboard"); // Redirect to a protected route after successful signin
     } catch (error: any) {
       setError(error.message);

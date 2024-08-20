@@ -24,9 +24,7 @@ const MainModal: React.FC<MainModalProps> = ({ modalOpen, setModalOpen, children
         >
           <div className="fixed inset-0 bg-black opacity-60" />
           <div className="px-4 min-h-screen">
-            <span className="inline-block h-screen align-middle" aria-hidden="true">
-              &#8203;
-            </span>
+            
             <Transition
               as={Fragment}
               show={modalOpen}
@@ -38,7 +36,7 @@ const MainModal: React.FC<MainModalProps> = ({ modalOpen, setModalOpen, children
               leaveTo="opacity-0 scale-95"
               
             >
-              <div className="inline-block w-full h-fit max-w-md p-6 my-8 overflow-hidden align-middle transition-all bg-inputBg transform  shadow-xl rounded-lg">
+              <div className="inline-block w-full h-fit max-w-4xl p-6 my-8 overflow-hidden align-middle transition-all bg-dry transform  shadow-xl rounded-lg">
                 {children}
               </div>
             </Transition>

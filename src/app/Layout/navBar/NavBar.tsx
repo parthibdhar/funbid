@@ -9,6 +9,7 @@ import { handleLogout } from "../../helper/logout";
 import { useSelector } from "react-redux";
 import { useAppSelector } from "@/app/store/hooks";
 import { FaCircle } from "react-icons/fa";
+import AddproductModal from "@/app/Modals/AddproductModal";
 
 export interface MenuItem {
   title: any;
@@ -22,7 +23,8 @@ type props = {
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.user);
-  
+  const [addProductModalISOpen, setAddProductModalISOpen] = useState(false);
+
   const hover = "hover:text-white transitions text-white ";
 
   // const Hover = ({ isActive }) => (isActive ? 'text-black' : hover)
@@ -35,12 +37,13 @@ const NavBar = () => {
 
   const transClass = isOpen ? "flex" : "hidden";
   const handleAddProduct = () => {
+    console.log(40, user);
     if (user.email.length === 0) {
       alert("please login first");
       return;
     }
-    alert("add product");
-    console.log("add product");
+   
+    setAddProductModalISOpen(true);
   };
 
   const menuItems: MenuItem[] = [
@@ -112,7 +115,8 @@ const NavBar = () => {
             >
               <div className=" text-gold flex">
                 {" "}
-                <FaCircle size={24} /> <p className="text-white ml-2"> {user?.balance} </p>
+                <FaCircle size={24} />{" "}
+                <p className="text-white ml-2"> {user?.balance} </p>
                 <button className="leading-7 mb-3 text-white hover:text-text">
                   <CiCirclePlus size={20} />
                 </button>
@@ -125,15 +129,10 @@ const NavBar = () => {
                2xl:gap-20 lg:flex justify-between xl:justify-end items-center
                 hover:text-text transitions text-white"
               >
-                <Link
-                  href={"../../signIn"}
-                 
-                >
-                  Login
-                </Link>
+                <Link href={"../../signIn"}>Login</Link>
                 <Link
                   href={"../../signUp"}
-                   className="col-span-2 font-medium text-sm hidden xl:gap-14
+                  className="col-span-2 font-medium text-sm hidden xl:gap-14
                2xl:gap-20 lg:flex justify-between xl:justify-end items-center
                 hover:text-text transitions text-white"
                 >
@@ -171,6 +170,12 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+
+      {/* -------------------------------------- MODAL SECTION  ----------------------------------------------- */}
+      <AddproductModal
+        modalOpen={addProductModalISOpen}
+        setModalOpen={setAddProductModalISOpen}
+      />
     </>
   );
 };

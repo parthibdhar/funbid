@@ -3,6 +3,9 @@
 type MessageProps = {
   label: string;
   placeholder: string;
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 type SelectProps = {
@@ -22,17 +25,19 @@ type InputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Message: React.FC<MessageProps> = ({ label, placeholder }) => {
+export const Message: React.FC<MessageProps> = ({name, value, onChange, label, placeholder }) => {
   return (
     <div className="text-sm w-full">
       <label className="text-border font-semibold">{label}</label>
       <textarea
         className="w-full h-40 mt-2 p-6 bg-main border border-border rounded"
-        name=""
-        id=""
+        name={name}
+        id={""}
         cols={30}
         rows={10}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       ></textarea>
     </div>
   );

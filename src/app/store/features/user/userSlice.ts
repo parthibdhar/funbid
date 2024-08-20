@@ -37,14 +37,14 @@ export const userSlice = createSlice({
     addUser: (state, action: PayloadAction<UserState>) => {
       console.log('action.payload', action.payload);
       console.log('state before', state);
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.phone = action.payload?.phone;
-      state.auction = action.payload?.auction;
-      state.balance = action.payload.balance;
-      state.role = action.payload.role;
-      state._id = action.payload._id;
-      state.createdAt = action.payload.createdAt;
+      state.name = action.payload.name || "no  name";
+    state.email = action.payload.email || "no  name";
+    state.phone = action.payload?.phone || "no  name";
+    state.auction = action.payload?.auction || [];
+    state.balance = action.payload.balance || 200;
+    state.role = action.payload.role || "no  name";
+    state._id = action.payload._id || "no  name";
+    state.createdAt = action.payload.createdAt || "no  name";
       console.log('state after', state);
 
     },
