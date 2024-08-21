@@ -4,7 +4,12 @@ import { useDropzone } from "react-dropzone";
 import { FiUploadCloud } from "react-icons/fi";
 import { storage } from "../database/firebase";
 
-const Uploader = () => {
+type Props = {
+    upload: any,
+    setUpload: any
+}
+
+const Uploader:React.FC<Props> = ({upload, setUpload}) => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     maxSize: 100000,
@@ -13,6 +18,7 @@ const Uploader = () => {
         console.log(acceptedFiles[0]);
         const file: any = acceptedFiles[0];
         console.log(15,file.name);
+        console.log(16, upload);
 
         if (file) {
             console.log(file.name);
@@ -46,6 +52,7 @@ const Uploader = () => {
               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
               getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 console.log('File available at', downloadURL);
+                setUpload({...upload, image: downloadURL});
               });
             }
          );
@@ -53,6 +60,7 @@ const Uploader = () => {
         else {
             console.log("No file selected");
         }
+        console.log(17, upload);
     },
   });
   return (

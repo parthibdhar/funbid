@@ -1,24 +1,32 @@
 import { db } from "../database/firebase";
 import { doc, setDoc, getDoc, updateDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
 
+
 export const createAuction = async (data: {
-    title: string,
+    name: string,
     description: string,
-    start_date: Date,
-    end_date: Date,
+    start_date: any,
+    end_date: any,
     createdBy: string,
     status: 'accepted' | 'pending' | 'rejected' | 'completed',
-    price: number,
-    highestBid: [
-        user: string,
-        price: number
+    price: string,
+    priceIncreament: string,
+    highestBid?: [
+        user?: string,
+        price?: string
     ],
+    
     createdAt: Date,
+    image: string,
 }) => {
     try {
-        const response = await setDoc(doc(db, "auctions", data.title), data);
+        const response = await setDoc(doc(db, "auctions", data.name), data);
         console.log(response);
-        return "data added successfully";
+        return {
+            success: true,
+            message: "data added successfully",
+            response
+        };
     } catch (error) {
         throw error;
     }

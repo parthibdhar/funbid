@@ -15,7 +15,7 @@ export const createUserProfile = async (uid: string, data: {name: string; email:
     } else{
       data.email = data.email;
     }
-    const UserData = {...data, role: "user", balance: 200, _id: uid};
+    const UserData = {...data, role: "user", balance: 200, _id: uid, auction: []};
     console.log(16, UserData);
    await setDoc(doc(db, 'users', uid), UserData);
    return {success: true,

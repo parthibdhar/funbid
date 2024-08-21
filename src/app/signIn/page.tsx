@@ -15,6 +15,7 @@ import { FaGoogle } from "react-icons/fa";
 import { useAppDispatch } from "../store/hooks";
 import { addUser } from "../store/features/user/userSlice";
 
+
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,8 +48,9 @@ const dispatch = useAppDispatch();
         email: usr?.UserData.email || '', // Default to empty string if missing
         createdAt: usr?.UserData.createdAt || new Date(), // Default to current date if missing
         phone: usr?.UserData?.phone || '', // Default to empty string if missing
-        auction: usr?.UserData?.auction || [] // Default to empty array if missing
-      }
+        auction: usr?.UserData?.auction || [] // Default to an empty array if missing
+      };
+      
        alert(usr.success);
         console.log(39, 'signin', userData);
        if (usr?.UserData) {

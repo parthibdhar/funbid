@@ -7,6 +7,9 @@ import Uploader from "../Components/Uploader";
 import { Input, Message } from "../Components/UsedInputs";
 import { ImUpload } from "react-icons/im";
 import { DateTime } from "ts-luxon";
+import { useAppSelector } from "../store/hooks";
+import { createAction } from "@reduxjs/toolkit";
+import { createAuction } from "../firestore/auction";
 
 type Props = {
   modalOpen: boolean;
@@ -14,16 +17,19 @@ type Props = {
 };
 
 const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
+  const user = useAppSelector((state) => state.user);
+  const [error, setError] = useState("");
   const [productToAdd, setProductToAdd] = useState({
     name: "",
     description: "",
-    startingDate: "",
-    endingDate: "",
-    startingPrice: "",
+    start_date: "",
+    end_date: "",
+    price: "",
     priceIncreament: "",
+    image: "",
   });
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     // Function to get the ordinal suffix for a given day
     const getOrdinal = (day: number): string => {
       if (day > 3 && day < 21) return "th"; // Handles 11th, 12th, 13th
@@ -38,13 +44,54 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
           return "th";
       }
     };
-    const startDate: DateTime = DateTime.fromISO(productToAdd?.startingDate);
+    const startDate: DateTime = DateTime.fromISO(productToAdd?.start_date);
+    const endDate: DateTime = DateTime.fromISO(productToAdd?.end_date);
+    console.log(startDate, endDate);
+    alert("here");
+    if (startDate >= endDate) {
+      console.log("here");
+      setError("Start date should be less than end date");
+      return;
+    }
     const startOrdinal: string = getOrdinal(startDate.day);
+    const endOrdinal: string = getOrdinal(endDate.day);
     const isoStart: String = startDate.toFormat(`d'${startOrdinal}' LLL, yyyy`);
+    const isoend: String = startDate.toFormat(`d'${endOrdinal}' LLL, yyyy`);
     console.log(isoStart);
+    console.log("productToAdd", productToAdd);
+    try {
+      const res = await createAuction({
+        ...productToAdd,
+        createdBy: user._id,
+        start_date: isoStart,
+        end_date: isoend,
+        status: "pending",
+        createdAt: new Date(),
+      });
+      if (res.success) {
+        setModalOpen(false);
+        console.log("res", res);
+      }
+    } catch (error) {
+      console.log("error in add product", error);
+    }
+  };
+
+  const handleCancleProduct = () => {
+    setProductToAdd({
+      name: "",
+      description: "",
+      start_date: "",
+      end_date: "",
+      price: "",
+      priceIncreament: "",
+      image: "",
+    });
+    setModalOpen(false);
     console.log("productToAdd", productToAdd);
   };
 
+  console.log("user", 63, user._id);
   return (
     <MainModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
       <div className="flex flex-col gap-6 m-3 ">
@@ -53,10 +100,10 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
           {/* Image */}
           <div className="flex flex-col gap-2">
             <p className="text-border font-semibold text-sm">Product Image</p>
-            <Uploader />
+            <Uploader upload={productToAdd} setUpload={setProductToAdd} />
             <div className="w-32 h-32 p-2 bg-main border-border rounded border">
               <img
-                src="/images/products/horse.jpg"
+                src={productToAdd?.image ?? "/images/no-image.jpg"}
                 alt=""
                 className="w-full h-full object-cover rounded"
               />
@@ -97,11 +144,11 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
               type="date"
               bg={true}
               name={""}
-              value={productToAdd?.startingDate}
+              value={productToAdd?.start_date}
               onChange={(e) => {
                 setProductToAdd({
                   ...productToAdd,
-                  startingDate: e.target.value,
+                  start_date: e.target.value,
                 });
               }}
             />
@@ -111,11 +158,11 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
               type="number"
               bg={true}
               name={""}
-              value={productToAdd?.startingPrice}
+              value={productToAdd?.price}
               onChange={(e) => {
                 setProductToAdd({
                   ...productToAdd,
-                  startingPrice: e.target.value,
+                  price: e.target.value,
                 });
               }}
             />
@@ -127,11 +174,11 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
               type="date"
               bg={true}
               name={""}
-              value={productToAdd?.endingDate}
+              value={productToAdd?.end_date}
               onChange={(e) => {
                 setProductToAdd({
                   ...productToAdd,
-                  endingDate: e.target.value,
+                  end_date: e.target.value,
                 });
               }}
             />
@@ -151,14 +198,16 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
             />
           </div>
         </div>
-
+        {error && (
+          <p className="text-red-800 text-xl font-semibold">*{error}*</p>
+        )}
         {/* Product VIDEO */}
-        <div className="flex flex-col gap-2 w-full ">
+        {/* <div className="flex flex-col gap-2 w-full ">
           <label className="text-border font-semibold text-sm">
             Product Vedio
           </label>
-          <Uploader />
-        </div>
+          <Uploader upload = {""} setUpload = {""} />
+        </div> */}
 
         {/* CASTS */}
         {/* <div className="w-full grid lg:grid-cols-2 gap-6 items-start "> 
@@ -204,12 +253,15 @@ const AddproductModal: React.FC<Props> = ({ modalOpen, setModalOpen }) => {
         {/* SUBMIT */}
         <div className="w-full grid md:grid-cols-2 gap-6">
           <button
-            onClick={handleAddProduct}
+            onClick={handleCancleProduct}
             className=" transitions hover:bg-transparent hover:border-subText hover:text-subText  font-medium w-full flex-rows gap-6 bg-text border-y border-subMain text-subText py-4 rounded "
           >
             <ImUpload /> cancel
           </button>
-          <button className="transitions hover:bg-transparent hover:border-subText hover:text-subText font-medium w-full flex-rows gap-6 bg-subText border-2 border-subMain text-white py-4 rounded ">
+          <button
+            onClick={handleAddProduct}
+            className="transitions hover:bg-transparent hover:border-subText hover:text-subText font-medium w-full flex-rows gap-6 bg-subText border-2 border-subMain text-white py-4 rounded "
+          >
             <ImUpload /> Publish Product
           </button>
         </div>
