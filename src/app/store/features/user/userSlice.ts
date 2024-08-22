@@ -4,14 +4,14 @@ import type { RootState } from '../../store'
 
 // Define a type for the slice state
 interface UserState {
-  name: string;
-  email: string;
-  phone?: string; // Optional field
-  balance: number;
-  role: string;
-  _id: string;
-  createdAt: Date;
-  auction?: string[]; // Optional field
+  name: any;
+  email: any;
+  phone?: any; // Optional field
+  balance: any;
+  role: any;
+  _id: any;
+  createdAt: any;
+  auction?: any[]; // Optional field
 }
 
 

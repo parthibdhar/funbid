@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiCirclePlus, CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 import { useAppSelector } from "@/app/store/hooks";
 import { FaCircle } from "react-icons/fa";
 import AddproductModal from "@/app/Modals/AddproductModal";
+import { auth } from "@/app/database/firebase";
+import { getUserProfile } from "@/app/firestore/user";
+import { set } from "firebase/database";
 
 export interface MenuItem {
   title: any;
@@ -22,7 +25,7 @@ type props = {
 };
 
 const NavBar = () => {
-  const user = useAppSelector((state) => state.user);
+ const [usr, setUsr] = useState({} as any);
   const [addProductModalISOpen, setAddProductModalISOpen] = useState(false);
 
   const hover = "hover:text-white transitions text-white ";
@@ -36,9 +39,29 @@ const NavBar = () => {
   };
 
   const transClass = isOpen ? "flex" : "hidden";
+
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      
+      if (user) {
+        const res = await getUserProfile(user.uid);
+        setUsr(res);
+        console.log("user", user);
+        console.log("usr", usr);
+      } else {
+        setUsr([]);
+      }
+     
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
   const handleAddProduct = () => {
-    console.log(40, user);
-    if (user.email.length === 0) {
+    console.log(40, usr);
+    if (usr?.email.length === 0) {
       alert("please login first");
       return;
     }
@@ -108,7 +131,7 @@ const NavBar = () => {
           </div>
 
           {/* if user then coin or signUp ot Login Page */}
-          {user?.email ? (
+          {usr?.email ? (
             <div
               className="col-span-2 font-medium text-sm hidden xl:gap-14
                2xl:gap-20 lg:flex justify-between xl:justify-end items-center"
@@ -116,7 +139,7 @@ const NavBar = () => {
               <div className=" text-gold flex">
                 {" "}
                 <FaCircle size={24} />{" "}
-                <p className="text-white ml-2"> {user?.balance} </p>
+                <p className="text-white ml-2"> {usr?.balance} </p>
                 <button className="leading-7 mb-3 text-white hover:text-text">
                   <CiCirclePlus size={20} />
                 </button>

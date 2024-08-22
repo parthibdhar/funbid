@@ -20,7 +20,7 @@ export const createAuction = async (data: {
     image: string,
 }) => {
     try {
-        const response = await setDoc(doc(db, "auctions", data.name), data);
+        const response = await setDoc(doc(db, "auctions", data.name), {...data,  status: 'pending'});
         console.log(response);
         return {
             success: true,

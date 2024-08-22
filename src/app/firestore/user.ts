@@ -45,6 +45,7 @@ export const getUserProfile = async (uid: string) => {
   try {
     const userDoc = await getDoc(doc(db, 'users', uid));
     if (userDoc.exists()) {
+      console.log("userDoc.data()", userDoc.data());
       return userDoc.data();
     } else {
       throw new Error('User does not exist');
